@@ -1,18 +1,28 @@
 class Solution:
-    def minOperations(self, s1: str, s2: str) -> int:
-        if not s1 and s2:
-            return len(s2)
-        if not s2 and s1:
-            return len(s1)
-        if not s1 and not s2:
+    def assign(self, s1: str, s2: str):
+        self.s1 = s1
+        self.s2 = s2
+        self.l1 = len(s1)
+        self.l2 = len(s2)
+
+    def rcrsv(self, p1, p2):
+        if p1 > self.l1 - 1 and p2 <= self.l2 - 1:
+            return self.l2 - p2 + 1
+        if p2 > self.l2 - 1 and p1 <= self.l1 - 1:
+            return self.l1 - p1 + 1
+        if p1 > self.l1 - 1 and p2 > self.l2 - 1:
             return 0
 
-        if s1[0] == s2[0]:
-            return self.minOperations(s1[1:], s2[1:])
+        if self.s1[p1] == self.s2[p2]:
+            return self.rcrsv(p1+1, p2+1)
         else:
-            return min(1 + self.minOperations(s1[1:], s2[:]), 
-                       1 + self.minOperations(s1[1:], s2[1:]), 
-                       1 + self.minOperations(s1[:], s2[1:]))
+            return min(1 + self.rcrsv(p1+1, p2), 
+                       1 + self.rcrsv(p1+1, p2+1), 
+                       1 + self.rcrsv(p1, p2+1))
+
+    def minOperations(self, s1: str, s2: str) -> int:
+        self.assign(s1, s2)
+        return self.rcrsv(0, 0)
 
 
 solution = Solution()
