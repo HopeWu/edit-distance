@@ -7,9 +7,9 @@ class Solution:
 
     def rcrsv(self, p1, p2):
         if p1 > self.l1 - 1 and p2 <= self.l2 - 1:
-            return self.l2 - p2 + 1
+            return self.l2 - 1 - p2 + 1
         if p2 > self.l2 - 1 and p1 <= self.l1 - 1:
-            return self.l1 - p1 + 1
+            return self.l1 - 1 - p1 + 1
         if p1 > self.l1 - 1 and p2 > self.l2 - 1:
             return 0
 
